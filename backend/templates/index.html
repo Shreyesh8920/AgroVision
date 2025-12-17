@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AgriDash - Smart Farming Companion</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#16a34a", // green-600
+              "background-light": "#f0fdf4", // green-50
+              "background-dark": "#111827", // gray-900
+            },
+            fontFamily: {
+              display: ["Sora", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem", // 8px
+            },
+          },
+        },
+      };
+    </script>
+<style>
+        .material-icons-outlined {
+            font-size: 24px;
+        }
+    .object-contain {
+  object-fit: contain;
+  background-color: #ffffff;
+}
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
+<div class="flex flex-col h-screen">
+<header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-3 shrink-0">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-icons-outlined text-primary text-3xl">grass</span>
+<div>
+<h1 class="text-xl font-bold text-gray-900 dark:text-white" data-i18n="app_name">AgriDash</h1>
+<p class="text-xs text-gray-500 dark:text-gray-400" data-i18n="app_tagline">Your Smart Farming Companion</p>
+</div>
+</div>
+<div class="flex items-center gap-10">
+<span class="material-icons-outlined cursor-pointer text-gray-600 dark:text-gray-300">account_circle</span>
+<select id="language-select" class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-sm rounded px-2 py-1 pr-8 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary">
+  <option value="en">English</option>
+  <option value="hi">हिन्दी</option>
+</select>
+</div>
+</div>
+</header>
+<main class="flex-grow p-6 overflow-y-auto">
+<div class="max-w-7xl mx-auto">
+<nav class="bg-white dark:bg-gray-800 rounded-lg shadow-sm mb-6">
+<ul class="flex justify-around items-center p-2">
+<li>
+<a class="flex flex-col items-center gap-1 px-8 py-2 text-primary border-b-2 border-primary" href="#">
+<span class="material-icons-outlined">dashboard</span>
+<span class="text-sm font-semibold" data-i18n="nav_dashboard">Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex flex-col items-center gap-1 px-8 py-2 text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">
+<span class="material-icons-outlined">chat</span>
+<span class="text-sm" data-i18n="nav_chat">Chat</span>
+</a>
+</li>
+<li>
+<a class="flex flex-col items-center gap-1 px-8 py-2 text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">
+<span class="material-icons-outlined">school</span>
+<span class="text-sm" data-i18n="nav_learn">Learn</span>
+</a>
+</li>
+</ul>
+</nav>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+<div id="weather-section" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-icons-outlined text-primary">thermostat</span>
+<h2 class="font-semibold text-lg text-gray-900 dark:text-white" data-i18n="weather_title">Weather Today</h2>
+</div>
+<div class="grid grid-cols-2 gap-y-4 text-sm">
+<div class="flex items-center gap-2">
+<span class="material-icons-outlined text-orange-500">thermostat</span>
+<div>
+<p class="text-gray-500 dark:text-gray-400" data-i18n="label_temperature">Temperature</p>
+<p id="temp-value" class="font-semibold text-gray-800 dark:text-gray-200">--°C</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-icons-outlined text-blue-500">water_drop</span>
+<div>
+<p class="text-gray-500 dark:text-gray-400" data-i18n="label_humidity">Humidity</p>
+<p id="humidity-value" class="font-semibold text-gray-800 dark:text-gray-200">--%</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-icons-outlined text-cyan-500">thunderstorm</span>
+<div>
+<p class="text-gray-500 dark:text-gray-400" data-i18n="label_rainfall">Rainfall</p>
+<p id="rainfall-value" class="font-semibold text-gray-800 dark:text-gray-200">--</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-icons-outlined text-gray-500">air</span>
+<div>
+<p class="text-gray-500 dark:text-gray-400" data-i18n="label_wind">Wind Speed</p>
+<p id="wind-value" class="font-semibold text-gray-800 dark:text-gray-200">-- km/h</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="material-icons-outlined text-primary">eco</span>
+<h2 class="font-semibold text-lg text-gray-900 dark:text-white" data-i18n="crop_title">Crop Recommendations</h2>
+</div>
+<p class="text-sm text-gray-600 dark:text-gray-300 mb-4" data-i18n="crop_desc">Smart suggestions for optimal crop selection based on soil, climate, and market conditions.</p>
+</div>
+<a href="/crop" class="bg-primary text-white font-semibold py-2.5 px-4 rounded-lg w-full hover:bg-green-700 transition-colors text-center">View Details</a>
+</div>
+<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="material-icons-outlined text-primary">trending_up</span>
+<h2 class="font-semibold text-lg text-gray-900 dark:text-white" data-i18n="yield_title">Yield Prediction</h2>
+</div>
+<p class="text-sm text-gray-600 dark:text-gray-300 mb-4" data-i18n="yield_desc">AI-powered analysis of your expected crop yield based on current conditions and historical data.</p>
+</div>
+<a href="/yield" class="bg-primary text-white font-semibold py-2.5 px-4 rounded-lg w-full hover:bg-green-700 transition-colors text-center">View Details</a>
+</div>
+<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="material-icons-outlined text-primary">science</span>
+<h2 class="font-semibold text-lg text-gray-900 dark:text-white" data-i18n="fert_title">Fertiliser Recommendation</h2>
+</div>
+<p class="text-sm text-gray-600 dark:text-gray-300 mb-4" data-i18n="fert_desc">Customized fertilizer recommendations to maximize crop nutrition and yield.</p>
+</div>
+<a href="/fertiliser" class="bg-primary text-white font-semibold py-2.5 px-4 rounded-lg w-full hover:bg-green-700 transition-colors text-center">View Details</a>
+</div>
+</div>
+<!--
+<div id="carouselExampleCaptions" class="carousel slide rounded-lg shadow-lg overflow-hidden" data-bs-ride="carousel" style="height: 280px;">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"></button>
+  </div>
+  <div class="carousel-inner h-full">
+    <div class="carousel-item active h-full">
+      <img src="{{ url_for('static', filename='images/croprec.jpeg') }}" class="d-block w-100 h-full object-contain" alt="Crop Recommendations">
+      <div class="carousel-caption d-none d-md-block text-black bg-white/70 rounded px-3 py-1">
+        <h5>Crop Recommendations</h5>
+        <p>Smart suggestions based on soil, climate, and market conditions.</p>
+      </div>
+    </div>
+    <div class="carousel-item h-full">
+      <img src="{{ url_for('static', filename='images/yield.jpg') }}" class="d-block w-100 h-full object-contain" alt="Yield Prediction">
+      <div class="carousel-caption d-none d-md-block text-black bg-white/70 rounded px-3 py-1">
+        <h5>Yield Prediction</h5>
+        <p>AI-powered analysis of expected crop yield.</p>
+      </div>
+    </div>
+    <div class="carousel-item h-full">
+      <img src="{{ url_for('static', filename='images/fert.jpg') }}" class="d-block w-100 h-full object-contain" alt="Fertiliser Recommendation">
+      <div class="carousel-caption d-none d-md-block text-black bg-white/70 rounded px-3 py-1">
+        <h5>Fertiliser Recommendation</h5>
+        <p>Customized fertilizer guidance for maximum yield.</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+-->
+</div>
+</main>
+</div>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const translations = {
+      en: {
+        app_name: "AgriDash",
+        app_tagline: "Your Smart Farming Companion",
+        nav_dashboard: "Dashboard",
+        nav_chat: "Chat",
+        nav_learn: "Learn",
+        weather_title: "Weather Today",
+        crop_title: "Crop Recommendations",
+        crop_desc: "Smart suggestions for optimal crop selection based on soil, climate, and market conditions.",
+        yield_title: "Yield Prediction",
+        yield_desc: "AI-powered analysis of your expected crop yield based on current conditions and historical data.",
+        fert_title: "Fertiliser Recommendation",
+        fert_desc: "Customized fertilizer recommendations to maximize crop nutrition and yield.",
+        label_temperature: "Temperature",
+        label_humidity: "Humidity",
+        label_rainfall: "Rainfall",
+        label_wind: "Wind Speed",
+      },
+
+      hi: {
+        app_name: "एग्रीडैश",
+        app_tagline: "आपका स्मार्ट खेती साथी",
+        nav_dashboard: "डैशबोर्ड",
+        nav_chat: "चैट",
+        nav_learn: "सीखें",
+        weather_title: "आज का मौसम",
+        crop_title: "फसल अनुशंसा",
+        crop_desc: "मिट्टी, जलवायु और बाजार स्थितियों के आधार पर सर्वोत्तम फसल सुझाव।",
+        yield_title: "उपज भविष्यवाणी",
+        yield_desc: "वर्तमान स्थिति और ऐतिहासिक डेटा के आधार पर AI संचालित फसल उपज विश्लेषण।",
+        fert_title: "उर्वरक अनुशंसा",
+        fert_desc: "उच्चतम उपज के लिए कस्टम उर्वरक मार्गदर्शन।",
+        label_temperature: "तापमान",
+        label_humidity: "आर्द्रता",
+        label_rainfall: "वर्षा",
+        label_wind: "पवन गति",
+      }
+    };
+
+    const langSelect = document.getElementById("language-select");
+
+    function applyLanguage(lang) {
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (translations[lang] && translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+    }
+
+    langSelect.addEventListener("change", () => {
+      const selected = langSelect.value;
+      localStorage.setItem("language", selected);
+      applyLanguage(selected);
+    });
+
+    const savedLang = localStorage.getItem("language") || "en";
+    langSelect.value = savedLang;
+    applyLanguage(savedLang);
+  });
+</script>
+</body></html>
