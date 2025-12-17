@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yield Prediction</title>
+
+  <!-- Bootstrap 5.3 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Inter Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/yield.css') }}">
+
+</head>
+<body>
+  <div class="container-lg py-4">
+
+    <!-- Hero Banner -->
+    <div class="hero-banner d-flex align-items-center justify-content-center flex-column text-center mb-4">
+      <h1 class="banner-title mb-2" data-key="yieldPrediction">Yield Prediction</h1>
+      <p class="banner-subtitle mb-0" data-key="yieldSubtitle">Advanced crop yield forecasting powered by data science</p>
+    </div>
+
+    <!-- Main Card -->
+    <div class="main-card p-4 bg-white rounded shadow-sm">
+      <h2 class="section-title" data-key="fieldParameters">Field Parameters</h2>
+      <p class="section-subtitle" data-key="fieldParametersSubtitle">Enter comprehensive field data for accurate yield prediction</p>
+      <div class="section-divider"></div>
+
+      <form id="yieldForm" novalidate>
+
+        <!-- Unified Location & Soil Properties Panel -->
+        <div class="row g-3 mb-4 align-items-stretch">
+          <div class="col-12">
+            <div class="panel panel-neutral h-100">
+              <div class="panel-title" data-key="locationSoilProperties">Location & Soil Properties</div>
+              <div class="row g-3">
+                <div class="col-lg-6">
+                  <label class="form-label" for="region" data-key="region">Region</label>
+                  <select id="region" class="form-select" required aria-label="Region" aria-describedby="regionHelp">
+                    <option value="" selected disabled data-key="selectOption">Select…</option>
+                    <option value="North" data-key="north">North</option>
+                    <option value="East" data-key="east">East</option>
+                    <option value="West" data-key="west">West</option>
+                    <option value="South" data-key="south">South</option>
+                  </select>
+                  <div class="form-help" id="regionHelp" data-key="regionHelp">Geographic location of your field</div>
+                </div>
+                <div class="col-lg-6">
+                  <label class="form-label" for="soil_type" data-key="soilType">Soil Type</label>
+                  <select id="soil_type" class="form-select" required aria-label="Soil Type" aria-describedby="soilTypeHelp">
+                    <option value="" selected disabled data-key="selectOption">Select…</option>
+                    <option value="Chalky" data-key="chalky">Chalky</option>
+                    <option value="Clay" data-key="clay">Clay</option>
+                    <option value="Loam" data-key="loam">Loam</option>
+                    <option value="Peaty" data-key="peaty">Peaty</option>
+                    <option value="Sandy" data-key="sandy">Sandy</option>
+                    <option value="Silt" data-key="silt">Silt</option>
+                  </select>
+                  <div class="form-help" id="soilTypeHelp" data-key="soilTypeHelp">Primary soil composition</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row B: Climate Conditions -->
+        <div class="col-12 panel panel-peach mb-4">
+          <h5 class="panel-title mb-3" data-key="climateConditions">Climate Conditions</h5>
+          <div class="row g-3">
+            <div class="col-lg-6">
+              <label class="form-label fw-semibold" for="rainfall" data-key="rainfallLabel">Rainfall (mm)</label>
+              <div class="d-flex align-items-center">
+                <input
+                  type="number"
+                  id="rainfall"
+                  class="form-control"
+                  min="0"
+                  max="5000"
+                  step="any"
+                  required
+                  aria-label="Annual Rainfall"
+                  aria-describedby="rainfallHelp"
+                />
+              </div>
+              <div class="form-help" id="rainfallHelp" data-key="rainfallHelp">Annual rainfall in millimeters</div>
+            </div>
+
+            <div class="col-lg-6">
+              <label class="form-label fw-semibold" for="temperature" data-key="temperatureLabel">Temperature (°C)</label>
+              <div class="d-flex align-items-center">
+                <input
+                  type="number"
+                  id="temperature"
+                  class="form-control"
+                  min="-10"
+                  max="60"
+                  step="any"
+                  required
+                  aria-label="Average Annual Temperature"
+                  aria-describedby="temperatureHelp"
+                />
+              </div>
+              <div class="form-help" id="temperatureHelp" data-key="temperatureHelp">Average annual temperature in Celsius</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row C: Farming Practices -->
+        <div class="col-12 panel mb-4">
+          <h5 class="panel-title mb-3" data-key="farmingPractices">Farming Practices</h5>
+          <div class="row g-3">
+            
+            <div class="col-lg-4">
+              <label class="form-label fw-semibold" for="crop_name" data-key="cropNameLabel">Crop</label>
+              <select id="crop_name" class="form-select" required aria-label="Crop Name" aria-describedby="cropHelp">
+                <option value="" selected disabled data-key="selectOption">Select…</option>
+                <option value="rice" data-key="rice">Rice</option>
+                <option value="wheat" data-key="wheat">Wheat</option>
+                <option value="maize" data-key="maize">Maize</option>
+                <option value="barley" data-key="barley">Barley</option>
+              </select>
+              <div class="form-help" id="cropHelp" data-key="cropHelp">Select crop for yield prediction</div>
+            </div>
+
+
+            <div class="col-lg-4">
+              <label class="form-label fw-semibold" for="fertilizer_used" data-key="fertilizerUsedLabel">Fertilizer Used</label>
+              <select id="fertilizer_used" class="form-select" required aria-label="Fertilizer Used" aria-describedby="fertilizerHelp">
+                <option value="" selected disabled data-key="selectOption">Select…</option>
+                <option value="true" data-key="yes">Yes</option>
+                <option value="false" data-key="no">No</option>
+              </select>
+              <div class="form-help" id="fertilizerHelp" data-key="fertilizerHelp">Whether chemical or organic fertilizer is applied</div>
+            </div>
+
+            <div class="col-lg-4">
+              <label class="form-label fw-semibold" for="irrigation_used" data-key="irrigationUsedLabel">Irrigation Used</label>
+              <select id="irrigation_used" class="form-select" required aria-label="Irrigation Used" aria-describedby="irrigationHelp">
+                <option value="" selected disabled data-key="selectOption">Select…</option>
+                <option value="true" data-key="yes">Yes</option>
+                <option value="false" data-key="no">No</option>
+              </select>
+              <div class="form-help" id="irrigationHelp" data-key="irrigationHelp">Whether irrigation system is installed</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row D: Soil Nutrients & pH Level -->
+        <div class="col-12 panel panel-peach">
+          <h5 class="panel-title mb-3" data-key="soilNutrientsPhLevel">Soil Nutrients &amp; pH Level</h5>
+          <div class="row g-3">
+            <div class="col-lg-3 col-md-6">
+              <label class="form-label" for="n" data-key="nitrogenLabel">N – Nitrogen (kg/ha)</label>
+              <div class="d-flex align-items-center">
+                <input
+                  type="number"
+                  id="n"
+                  class="form-control"
+                  min="0"
+                  max="300"
+                  step="any"
+                  required
+                  aria-label="Nitrogen content"
+                  aria-describedby="nHelp"
+                />
+              </div>
+              <div class="form-help" id="nHelp" data-key="nitrogenHelp">Nitrogen content in kilograms per hectare</div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+              <label class="form-label" for="p" data-key="phosphorusLabel">P – Phosphorus (kg/ha)</label>
+              <div class="d-flex align-items-center">
+                <input
+                  type="number"
+                  id="p"
+                  class="form-control"
+                  min="0"
+                  max="300"
+                  step="any"
+                  required
+                  aria-label="Phosphorus content"
+                  aria-describedby="pHelp"
+                />
+              </div>
+              <div class="form-help" id="pHelp" data-key="phosphorusHelp">Phosphorus content in kilograms per hectare</div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+              <label class="form-label" for="k" data-key="potassiumLabel">K – Potassium (kg/ha)</label>
+              <div class="d-flex align-items-center">
+                <input
+                  type="number"
+                  id="k"
+                  class="form-control"
+                  min="0"
+                  max="300"
+                  step="any"
+                  required
+                  aria-label="Potassium content"
+                  aria-describedby="kHelp"
+                />
+              </div>
+              <div class="form-help" id="kHelp" data-key="potassiumHelp">Potassium content in kilograms per hectare</div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+              <label class="form-label" for="ph" data-key="phLabel">pH (pH scale)</label>
+              <div class="d-flex align-items-center">
+                <input
+                  type="number"
+                  id="ph"
+                  class="form-control"
+                  min="0"
+                  max="14"
+                  step="any"
+                  required
+                  aria-label="Soil pH value"
+                  aria-describedby="phHelp"
+                />
+              </div>
+              <div class="form-help mb-0" id="phHelp" data-key="phHelp">Soil pH value (0–14 scale, 7 is neutral)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="mt-4 text-center">
+          <button type="submit" class="btn btn-success px-4 py-2 fw-semibold" data-key="predictYield">Predict Yield</button>
+        </div>
+        <div
+          id="yield-result"
+          class="mt-3 text-center fw-bold text-success"
+          style="font-size: 1.1rem;">
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="{{ url_for('static', filename='js/lang.js') }}"></script>
+
+  <script src="{{ url_for('static', filename='js/yield.js') }}"></script>
+
+  
+</body>
+</html>

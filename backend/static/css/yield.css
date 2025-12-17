@@ -1,0 +1,273 @@
+:root {
+  /* Typography Tokens */
+  --text-head: #1F2A37;
+  --text-label: #374151;
+  --text-helper: #166534; /* green for helpers */
+  --text-body: #111827;
+}
+/* Section divider */
+.section-divider {
+  height: 1px;
+  background: rgba(0,0,0,0.06);
+  margin: 8px 0 16px;
+}
+
+/* Panels */
+.panel {
+  background: #EEF6EE;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+}
+
+.panel-peach {
+  background: #FCEFD9;
+  border: 1px solid rgba(222,140,20,0.2);
+}
+
+.panel-title {
+  font: 600 13.5px/1.35 Inter;
+  color: var(--text-head);
+  margin-bottom: 10px;
+}
+
+.form-help {
+  font-family: Inter, system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--text-helper);
+  margin-top: 6px;
+}
+/* Global Variables */
+:root {
+  --bg-color: #F6F5EF;
+  --white: #FFFFFF;
+  --border-color: rgba(0, 0, 0, 0.06);
+  --shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+  --heading: #1F2A37;
+  --label: #374151;
+  --helper: #6B7280;
+  --green: #169B50;
+  --green-hover: #138347;
+  --focus-ring: rgba(22, 155, 80, 0.35);
+  --peach-bg: #FCEFD9;
+}
+
+/* Base Layout */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--heading);
+  padding: 24px 0 24px 0;
+}
+
+.container-lg {
+  max-width: 1040px;
+}
+
+/* Hero Banner */
+.hero-banner {
+  background: linear-gradient(180deg, #D7882D 0%, #B66C1F 100%);
+  color: #FFFFFF;
+  height: 120px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.hero-banner h1 {
+  font-weight: 600;
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.hero-banner p {
+  font-weight: 400;
+  font-size: 13px;
+  color: rgba(255,255,255,0.9);
+}
+
+/* Icon chip */
+.icon-chip {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #3A8D40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+/* Main Card */
+.main-card {
+  background-color: var(--white);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+  padding: 18px;
+  margin-top: 16px;
+}
+
+/* Section Titles */
+.section-title {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.section-subtext {
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--helper);
+  margin-bottom: 10px;
+}
+
+/* Labels and Helpers */
+.form-label {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--label);
+  margin-bottom: 6px;
+}
+
+.form-text {
+  font-size: 12px;
+  color: var(--helper);
+  margin-top: 6px;
+}
+
+/* Inputs and Selects */
+input[type="number"],
+select {
+  height: 36px;
+  border-radius: 9px;
+  border: 1px solid #E5E7EB;
+  background-color: #FAFAFA;
+  padding: 0 10px;
+  font-size: 14px;
+  font-weight: 500;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+input[type="number"]:focus,
+select:focus {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+/* Number input appearance for cross-browser compatibility */
+input[type="number"] {
+  appearance: auto;
+  -webkit-appearance: auto;
+  -moz-appearance: textfield;
+  padding-right: 3.2em; /* space for spinner arrows */
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1;
+  margin: 0;
+  position: static;
+  height: auto;
+  -webkit-appearance: auto;
+}
+
+/* Unit text outside input */
+.unit {
+  margin-left: 8px;
+  color: var(--text-helper);
+  font: 500 12.5px/1.35 Inter;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Peach Panels */
+.peach-panel {
+  background-color: var(--peach-bg);
+  border: 1px solid rgba(222, 140, 20, 0.2);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+/* Validation */
+.is-invalid {
+  border-color: red !important;
+}
+
+.invalid-feedback {
+  display: block;
+  font-size: 12px;
+  color: red;
+  margin-top: 4px;
+}
+
+/* Submit Button */
+.btn-success {
+  background-color: var(--green);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  height: 44px;
+  width: 100%;
+  margin-top: 18px;
+  box-shadow: 0 6px 14px rgba(22, 155, 80, 0.25);
+}
+
+.btn-success:hover {
+  background-color: var(--green-hover);
+}
+
+.btn-success:focus {
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+/* Responsive nutrient row fields */
+.nutrient-field {
+  flex: 1 1 22%;
+  min-width: 200px;
+}
+/* Ensure unit spans are sibling elements */
+
+/* Location & Soil Properties sub-boxes */
+.subbox {
+  background: #EAF3EA; /* subtle inner contrast */
+  border: 1px solid rgba(0,0,0,0.04);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+}
+
+/* Ensure spinner arrows at extreme right */
+input[type="number"] {
+  appearance: auto;
+  -webkit-appearance: auto;
+  -moz-appearance: textfield;
+  padding-right: 2.4em;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  margin: 0;
+  opacity: 1;
+  position: static;
+  height: auto;
+}
