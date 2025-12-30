@@ -2,7 +2,7 @@
   /* Typography Tokens */
   --text-head: #1F2A37;
   --text-label: #374151;
-  --text-helper: #166534; /* green for helpers */
+  --text-helper: #166534;
   --text-body: #111827;
 }
 /* Section divider */
@@ -72,7 +72,7 @@ body {
 
 /* Hero Banner */
 .hero-banner {
-  background: linear-gradient(180deg, #D7882D 0%, #B66C1F 100%);
+  background-image: url("../images/yield2.jpg");
   color: #FFFFFF;
   height: 120px;
   border-radius: 12px;
@@ -82,17 +82,22 @@ body {
   flex-direction: column;
   text-align: center;
   margin-bottom: 20px;
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.12),
+    0 18px 32px rgba(0, 0, 0, 0.18);
+  position: relative;
+  z-index: 2;
+  transform: translateY(-2px);
 }
-
 .hero-banner h1 {
   font-weight: 600;
-  font-size: 22px;
+  font-size: 26px;
   margin-bottom: 4px;
 }
 
 .hero-banner p {
   font-weight: 400;
-  font-size: 13px;
+  font-size: 15px;
   color: rgba(255,255,255,0.9);
 }
 
@@ -169,12 +174,11 @@ select:focus {
   box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
-/* Number input appearance for cross-browser compatibility */
 input[type="number"] {
   appearance: auto;
   -webkit-appearance: auto;
   -moz-appearance: textfield;
-  padding-right: 3.2em; /* space for spinner arrows */
+  padding-right: 3.2em; 
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -186,7 +190,7 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: auto;
 }
 
-/* Unit text outside input */
+
 .unit {
   margin-left: 8px;
   color: var(--text-helper);
@@ -237,16 +241,14 @@ input[type="number"]::-webkit-outer-spin-button {
   box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
-/* Responsive nutrient row fields */
 .nutrient-field {
   flex: 1 1 22%;
   min-width: 200px;
 }
-/* Ensure unit spans are sibling elements */
 
-/* Location & Soil Properties sub-boxes */
+/* Location & Soil Properties sub-box */
 .subbox {
-  background: #EAF3EA; /* subtle inner contrast */
+  background: #EAF3EA; 
   border: 1px solid rgba(0,0,0,0.04);
   border-radius: 12px;
   padding: 12px;
@@ -256,7 +258,6 @@ input[type="number"]::-webkit-outer-spin-button {
   height: 100%;
 }
 
-/* Ensure spinner arrows at extreme right */
 input[type="number"] {
   appearance: auto;
   -webkit-appearance: auto;
@@ -270,4 +271,54 @@ input[type="number"]::-webkit-outer-spin-button {
   opacity: 1;
   position: static;
   height: auto;
+}
+
+.panel,
+.peach-panel,
+.subbox {
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.06),
+    0 10px 18px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.yield-loading {
+  margin-top: 18px;
+  text-align: center;
+  font-weight: 500;
+  color: var(--green);
+}
+
+.yield-result-box {
+  margin-top: 18px;
+  background: #ECFDF5;            
+  border: 1px solid #A7F3D0;        
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  animation: fadeUp 0.3s ease;
+}
+
+.yield-result-box h6 {
+  margin-bottom: 4px;
+  font-weight: 600;
+  color: #065F46;
+}
+#yield-result-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #047857;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

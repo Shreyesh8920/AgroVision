@@ -11,9 +11,6 @@
 
   <!-- Inter Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
-  <!-- Custom CSS -->
-  
   <link rel="stylesheet" href="{{ url_for('static', filename='css/yield.css') }}">
 
 </head>
@@ -69,7 +66,7 @@
           </div>
         </div>
 
-        <!-- Row B: Climate Conditions -->
+        <!--Climate Conditions -->
         <div class="col-12 panel panel-peach mb-4">
           <h5 class="panel-title mb-3" data-key="climateConditions">Climate Conditions</h5>
           <div class="row g-3">
@@ -111,7 +108,7 @@
           </div>
         </div>
 
-        <!-- Row C: Farming Practices -->
+        <!--Farming Practices -->
         <div class="col-12 panel mb-4">
           <h5 class="panel-title mb-3" data-key="farmingPractices">Farming Practices</h5>
           <div class="row g-3">
@@ -151,7 +148,7 @@
           </div>
         </div>
 
-        <!-- Row D: Soil Nutrients & pH Level -->
+        <!--Soil Nutrients & pH Level -->
         <div class="col-12 panel panel-peach">
           <h5 class="panel-title mb-3" data-key="soilNutrientsPhLevel">Soil Nutrients &amp; pH Level</h5>
           <div class="row g-3">
@@ -228,16 +225,28 @@
             </div>
           </div>
         </div>
-
-        <!-- Submit -->
+        <!-- Submit Button -->
         <div class="mt-4 text-center">
-          <button type="submit" class="btn btn-success px-4 py-2 fw-semibold" data-key="predictYield">Predict Yield</button>
+          <button
+            type="submit"
+            class="btn btn-success px-4 py-2 fw-semibold"
+            data-key="predictYield">
+            Predict Yield
+          </button>
         </div>
-        <div
-          id="yield-result"
-          class="mt-3 text-center fw-bold text-success"
-          style="font-size: 1.1rem;">
+
+        <!-- Loading Spinner -->
+        <div id="yield-loading" class="yield-loading d-none">
+          <div class="spinner-border text-success" role="status"></div>
+          <div class="mt-2">Analysing Data…</div>
         </div>
+
+        <!-- Result Box -->
+        <div id="yield-result-box" class="yield-result-box d-none">
+          <h6 class="mb-1">Predicted Yield</h6>
+          <div id="yield-result-value"></div>
+        </div>
+
       </form>
     </div>
   </div>

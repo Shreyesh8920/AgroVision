@@ -1,12 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("yieldForm");
   if (!form) return;
+  const loadingEl = document.getElementById("yield-loading");
+  const resultBox = document.getElementById("yield-result-box");
+  const resultValue = document.getElementById("yield-result-value");
+
 
   form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
     const fields = [
-      { id: "crop_name", type: "select" },          // 🔥 ADDED
+      { id: "crop_name", type: "select" },     
       { id: "region", type: "select" },
       { id: "soil_type", type: "select" },
       { id: "fertilizer_used", type: "select" },
@@ -49,10 +53,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     if (!valid) return;
+    loadingEl.classList.remove("d-none");
+    resultBox.classList.add("d-none");
 
-    /* 🔥 FINAL PAYLOAD — MATCHES BACKEND + MODEL */
     const payload = {
-      crop_name: rawData.crop_name,                 // 🔥 ADDED
+      crop_name: rawData.crop_name,               
       Region: [rawData.region],
       Soil_Type: [rawData.soil_type],
       Rainfall_mm: [rawData.rainfall],
@@ -75,11 +80,16 @@ document.addEventListener("DOMContentLoaded", function () {
       const result = await response.json();
       const yieldValue = Number(result.predicted_yield).toFixed(2);
 
-      document.getElementById("yield-result").textContent =`Predicted Yield: ${yieldValue} quintals/acre`;
-
+      loadingEl.classList.add("d-none");
+      resultBox.classList.remove("d-none");
+      resultValue.style.color = "#047857";
+      resultValue.textContent = `${yieldValue} quintals/acre`;
     } catch (error) {
       console.error("Yield prediction failed:", error);
-      alert("Failed to predict yield.");
+      loadingEl.classList.add("d-none");
+      resultBox.classList.remove("d-none");
+      resultValue.style.color = "red";
+      resultValue.textContent = "Prediction failed. Please try again.";
     }
   });
 });
