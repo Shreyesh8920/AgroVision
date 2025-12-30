@@ -11,11 +11,9 @@ async function fetchData(location) {
   try {
     let url = '';
     if (location && typeof location === 'string') {
-      //url = `http://127.0.0.1:5100/collect?location=${encodeURIComponent(location)}`;
       url = `/collect?location=${encodeURIComponent(location)}`;
 
     } else if (location && location.lat != null && location.lon != null) {
-      //url = `http://127.0.0.1:5100/collect?lat=${location.lat}&lon=${location.lon}`;
       url = `/collect?lat=${location.lat}&lon=${location.lon}`;
 
     } else {
@@ -52,13 +50,11 @@ async function fetchData(location) {
       locationName = location;
     }
 
-    // Safely format values with units or fallback to 'N/A'
     setValue('temp-value', data.temperature != null ? `${data.temperature} °C` : 'N/A');
     setValue('humidity-value', data.humidity != null ? `${data.humidity} %` : 'N/A');
     setValue('rainfall-value', data.rainfall != null ? `${data.rainfall} mm` : 'N/A');
     setValue('wind-value', data.wind_speed != null ? `${data.wind_speed} km/h` : 'N/A');
 
-    // Update other dashboard cards if any
     const cardMap = [
       {id:'card-today', value: todayStr},
       {id:'card-season', value: seasonStr},
@@ -95,7 +91,7 @@ window.addEventListener('load', () => {
         // Initial fetch
         fetchData({ lat: cachedLat, lon: cachedLon });
 
-        // Refresh weather every 10 minutes (OPTION 2)
+        // Refresh weather, interval: 10 min
         if (!weatherInterval) {
           weatherInterval = setInterval(() => {
             fetchData({ lat: cachedLat, lon: cachedLon });
@@ -126,7 +122,6 @@ window.addEventListener('load', () => {
   }
 });
 
-// === Language Support ===
 const translations = {
   en: {
     temperatureLabel: "Temperature",

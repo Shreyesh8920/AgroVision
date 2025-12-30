@@ -1,226 +1,120 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title data-key="page_title">Crop Recommendation</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
-<script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              primary: "#38A169", // A rich, professional green
-              "background-light": "#F7FAFC",
-              "background-dark": "#1A202C",
-              "surface-light": "#FFFFFF",
-              "surface-dark": "#2D3748",
-              "text-primary-light": "#1A202C",
-              "text-primary-dark": "#EDF2F7",
-              "text-secondary-light": "#4A5568",
-              "text-secondary-dark": "#A0AEC0",
-              "border-light": "#E2E8F0",
-              "border-dark": "#4A5568",
-              "green-light": "#EBF8F2",
-              "green-dark": "#2D4438",
-              "blue-light": "#EBF8FF",
-              "blue-dark": "#284455",
-              "tan-light": "#FEFBF6",
-              "tan-dark": "#42382D",
-            },
-            fontFamily: {
-              display: ["Poppins", "sans-serif"],
-            },
-            borderRadius: {
-              DEFAULT: "0.5rem", // 8px
-            },
-          },
-        },
-      };
-    </script>
-<script src="{{ url_for('static', filename='js/lang.js') }}"></script>
-<script>
-  window.lang = window.lang || 'en';
-  document.addEventListener('DOMContentLoaded', () => {
-    function translatePage() {
-      document.querySelectorAll('[data-key]').forEach(el => {
-        const key = el.getAttribute('data-key');
-        if (window.lang && window.langData && window.langData[window.lang] && window.langData[window.lang][key]) {
-          el.textContent = window.langData[window.lang][key];
-        }
-      });
-      // For input placeholders and spans that are not direct text content, handle separately if needed
-      // Here all are text elements so direct textContent replacement is sufficient.
-    }
-    translatePage();
-    // Optional: expose translatePage for dynamic language switching
-    window.translatePage = translatePage;
-  });
-</script>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title data-key="page_title">Crop Recommendation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/crop.css') }}">
 </head>
-<body class="bg-background-light dark:bg-background-dark font-display text-text-primary-light dark:text-text-primary-dark antialiased">
-<div class="min-h-screen flex items-center justify-center p-4">
-<main class="w-full max-w-5xl mx-auto space-y-8">
-<header class="bg-primary text-white p-6 rounded-lg shadow-lg flex items-center space-x-4">
-<span class="material-icons-outlined text-4xl bg-white/20 p-3 rounded-full" aria-hidden="true">grass</span>
-<h1 class="text-3xl font-bold" data-key="crop_recommendation_title">Crop Recommendation</h1>
-</header>
-<div class="bg-surface-light dark:bg-surface-dark p-8 rounded-lg shadow-lg">
-<h2 class="text-2xl font-semibold mb-6 text-text-primary-light dark:text-text-primary-dark" data-key="enter_parameters">Enter Soil &amp; Climate Parameters</h2>
-<form class="space-y-8" id="cropForm" novalidate>
-<div class="grid md:grid-cols-2 gap-8">
-<section class="bg-green-light dark:bg-green-dark p-6 rounded-lg border border-border-light dark:border-border-dark">
-<h3 class="text-lg font-semibold flex items-center mb-6 text-green-800 dark:text-green-200">
-<span class="material-icons-outlined mr-2" aria-hidden="true">eco</span>
-<span data-key="soil_nutrients_npk">Soil Nutrients (NPK)</span>
-</h3>
-<div class="space-y-6">
-<div>
-<label class="block text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark mb-1" for="nitrogen" data-key="nitrogen_label">Nitrogen (N) kg/ha</label>
-<span class="text-xs text-gray-500 mb-1 block" data-key="nitrogen_tooltip">Typical range: 0–140 kg/ha</span>
-<input class="w-full bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-md focus:ring-primary focus:border-primary" id="nitrogen" name="nitrogen" type="number" required min="0" max="140" />
-<p class="mt-2 text-xs text-text-secondary-light dark:text-text-secondary-dark hidden" id="nitrogenError"></p>
-</div>
-<div>
-<label class="block text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark mb-1" for="phosphorous" data-key="phosphorous_label">Phosphorous (P) kg/ha</label>
-<span class="text-xs text-gray-500 mb-1 block" data-key="phosphorous_tooltip">Typical range: 5–145 kg/ha</span>
-<input class="w-full bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-md focus:ring-primary focus:border-primary" id="phosphorous" name="phosphorous" type="number" required min="5" max="145" />
-<p class="mt-2 text-xs text-text-secondary-light dark:text-text-secondary-dark hidden" id="phosphorousError"></p>
-</div>
-<div>
-<label class="block text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark mb-1" for="potassium" data-key="potassium_label">Potassium (K) kg/ha</label>
-<span class="text-xs text-gray-500 mb-1 block" data-key="potassium_tooltip">Typical range: 5–205 kg/ha</span>
-<input class="w-full bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-md focus:ring-primary focus:border-primary" id="potassium" name="potassium" type="number" required min="5" max="205" />
-<p class="mt-2 text-xs text-text-secondary-light dark:text-text-secondary-dark hidden" id="potassiumError"></p>
-</div>
-</div>
-</section>
-<section class="bg-blue-light dark:bg-blue-dark p-6 rounded-lg border border-border-light dark:border-border-dark">
-<h3 class="text-lg font-semibold flex items-center mb-6 text-blue-800 dark:text-blue-200">
-<span class="material-icons-outlined mr-2" aria-hidden="true">thermostat</span><span data-key="climate_conditions">Climate Conditions</span></h3>
-<div class="space-y-6">
-<div>
-<label class="block text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark mb-1" for="temperature" data-key="temperature_label">Temperature (°C)</label>
-<span class="text-xs text-gray-500 mb-1 block" data-key="temperature_tooltip">Typical range: -10–50°C</span>
-<input class="w-full bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-md focus:ring-primary focus:border-primary" id="temperature" name="temperature" type="number" required min="-10" max="50" step="0.1" />
-<p class="mt-2 text-xs text-text-secondary-light dark:text-text-secondary-dark hidden" id="temperatureError"></p>
-</div>
-<div>
-<label class="block text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark mb-1" for="humidity" data-key="humidity_label">Humidity (%)</label>
-<span class="text-xs text-gray-500 mb-1 block" data-key="humidity_tooltip">Typical range: 0–100%</span>
-<input class="w-full bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-md focus:ring-primary focus:border-primary" id="humidity" name="humidity" type="number" required min="0" max="100" step="0.1" />
-<p class="mt-2 text-xs text-text-secondary-light dark:text-text-secondary-dark hidden" id="humidityError"></p>
-</div>
-<div>
-<label class="block text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark mb-1" for="rainfall" data-key="rainfall_label">Rainfall (mm)</label>
-<span class="text-xs text-gray-500 mb-1 block" data-key="rainfall_tooltip">Typical range: 0–4000 mm</span>
-<input class="w-full bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-md focus:ring-primary focus:border-primary" id="rainfall" name="rainfall" type="number" required min="0" max="4000" step="0.1" />
-<p class="mt-2 text-xs text-text-secondary-light dark:text-text-secondary-dark hidden" id="rainfallError"></p>
-</div>
-</div>
-</section>
-</div>
-<section class="bg-tan-light dark:bg-tan-dark p-6 rounded-lg border border-border-light dark:border-border-dark">
-<h3 class="text-lg font-semibold flex items-center mb-6 text-amber-800 dark:text-amber-200">
-<span class="material-icons-outlined mr-2" aria-hidden="true">science</span><span data-key="soil_chemistry">Soil Chemistry</span></h3>
-<div>
-<label class="block text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark mb-1" for="ph" data-key="ph_label">pH Level</label>
-<span class="text-xs text-gray-500 mb-1 block" data-key="ph_tooltip">Typical range: 0–14</span>
-<input class="w-full md:w-1/2 bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-md focus:ring-primary focus:border-primary" id="ph" name="ph" type="number" required min="0" max="14" step="0.1" />
-<p class="mt-2 text-xs text-text-secondary-light dark:text-text-secondary-dark hidden" id="phError"></p>
-</div>
-</section>
-<div class="flex justify-center pt-4">
-<button class="w-full md:w-auto bg-primary hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg flex items-center justify-center space-x-2 transition-colors duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-background-dark" type="submit" id="submitBtn">
-<span class="material-icons-outlined" aria-hidden="true">recommend</span>
-<span data-key="recommend_crop">Recommend Crop</span>
-</button>
-</div>
-<div id="crop-result" class="mt-6 text-center text-xl font-bold text-green-700"></div>
-</form>
-</div>
-</main>
-</div>
+<body>
+  <div class="page-wrapper">
+    <main class="main-container">
+      <!-- Header -->
+      <header class="header">
+        <span class="material-icons-outlined header-icon" aria-hidden="true">grass</span>
+        <h1 class="header-title" data-key="crop_recommendation_title">Crop Recommendation</h1>
+      </header>
 
-<script>
-  // Commented out OpenWeatherMap API auto-fill feature
-  /*
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(position => {
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
-      const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY';
-      fetch(https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey})
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById('temperature').value = data.main.temp;
-          document.getElementById('humidity').value = data.main.humidity;
-          // Note: Rainfall data may not be directly available, so omitted or handled differently
-        });
-    });
-  }
-  */
-  window.isCropFormValid = false;
-  const form = document.getElementById('cropForm');
-  const submitBtn = document.getElementById('submitBtn');
+      <!-- Main Form Card -->
+      <div class="form-card">
+        <h2 class="form-title" data-key="enter_parameters">Enter Soil &amp; Climate Parameters</h2>
+        
+        <form class="form-content" id="cropForm" novalidate>
+          <div class="sections-grid">
+            <!-- Soil Nutrients Section -->
+            <section class="section-card section-card--green">
+              <h3 class="section-header section-header--green">
+                <span class="material-icons-outlined section-icon" aria-hidden="true">eco</span>
+                <span data-key="soil_nutrients_npk">Soil Nutrients (NPK)</span>
+              </h3>
+              <div class="fields-container">
+                <div class="field-group">
+                  <label class="field-label" for="nitrogen" data-key="nitrogen_label">Nitrogen (N) kg/ha</label>
+                  <input class="field-input" id="nitrogen" name="nitrogen" type="number" required min="0" max="140"/>
+                  <span class="field-tooltip" data-key="nitrogen_tooltip">Typical range: 0–140 kg/ha</span>
+                  <p class="field-error hidden" id="nitrogenError"></p>
+                </div>
+                <div class="field-group">
+                  <label class="field-label" for="phosphorous" data-key="phosphorous_label">Phosphorous (P) kg/ha</label>
+                  <input class="field-input" id="phosphorous" name="phosphorous" type="number" required min="5" max="145"/>
+                  <span class="field-tooltip" data-key="phosphorous_tooltip">Typical range: 5–145 kg/ha</span>
+                  <p class="field-error hidden" id="phosphorousError"></p>
+                </div>
+                <div class="field-group">
+                  <label class="field-label" for="potassium" data-key="potassium_label">Potassium (K) kg/ha</label>
+                  
+                  <input class="field-input" id="potassium" name="potassium" type="number" required min="5" max="205"/>
+                  <span class="field-tooltip" data-key="potassium_tooltip">Typical range: 5–205 kg/ha</span>
+                  <p class="field-error hidden" id="potassiumError"></p>
+                </div>
+              </div>
+            </section>
 
+            <!-- Climate Conditions Section -->
+            <section class="section-card section-card--blue">
+              <h3 class="section-header section-header--blue">
+                <span class="material-icons-outlined section-icon" aria-hidden="true">thermostat</span>
+                <span data-key="climate_conditions">Climate Conditions</span>
+              </h3>
+              <div class="fields-container">
+                <div class="field-group">
+                  <label class="field-label" for="temperature" data-key="temperature_label">Temperature (°C)</label>
+                  
+                  <input class="field-input" id="temperature" name="temperature" type="number" required min="-10" max="50" step="0.1"/>
+                  <span class="field-tooltip" data-key="temperature_tooltip">Typical range: -10–50°C</span>
+                  <p class="field-error hidden" id="temperatureError"></p>
+                </div>
+                <div class="field-group">
+                  <label class="field-label" for="humidity" data-key="humidity_label">Humidity (%)</label>
+                  
+                  <input class="field-input" id="humidity" name="humidity" type="number" required min="0" max="100" step="0.1"/>
+                  <span class="field-tooltip" data-key="humidity_tooltip">Typical range: 0–100%</span>
+                  <p class="field-error hidden" id="humidityError"></p>
+                </div>
+                <div class="field-group">
+                  <label class="field-label" for="rainfall" data-key="rainfall_label">Rainfall (mm)</label>
+                  
+                  <input class="field-input" id="rainfall" name="rainfall" type="number" required min="0" max="4000" step="0.1"/>
+                  <span class="field-tooltip" data-key="rainfall_tooltip">Typical range: 0–4000 mm</span>
+                  <p class="field-error hidden" id="rainfallError"></p>
+                </div>
+              </div>
+            </section>
+          </div>
 
-  const fields = [
-    {id: 'nitrogen', min: 0, max: 140},
-    {id: 'phosphorous', min: 5, max: 145},
-    {id: 'potassium', min: 5, max: 205},
-    {id: 'temperature', min: -10, max: 50},
-    {id: 'humidity', min: 0, max: 100},
-    {id: 'rainfall', min: 0, max: 4000},
-    {id: 'ph', min: 0, max: 14}
-  ];
+          <!-- Soil Chemistry Section -->
+          <section class="section-card section-card--tan section-card--full">
+            <h3 class="section-header section-header--amber">
+              <span class="material-icons-outlined section-icon" aria-hidden="true">science</span>
+              <span data-key="soil_chemistry">Soil Chemistry</span>
+            </h3>
+            <div class="field-group">
+              <label class="field-label" for="ph" data-key="ph_label">pH Level</label>
+              
+              <input class="field-input field-input--half" id="ph" name="ph" type="number" required min="0" max="14" step="0.1"/>
+              <span class="field-tooltip" data-key="ph_tooltip">Typical range: 0–14</span>
+              <p class="field-error hidden" id="phError"></p>
+            </div>
+          </section>
 
-  form.addEventListener('submit', function(event) {
-    event.preventDefault();
-    let valid = true;
+          <!-- Submit Button -->
+          <div class="submit-wrapper">
+            <button class="submit-btn" type="submit" id="submitBtn">
+              <span class="material-icons-outlined submit-btn-icon" aria-hidden="true">recommend</span>
+              <span data-key="recommend_crop">Recommend Crop</span>
+            </button>
+          </div>
 
-    fields.forEach(({id, min, max}) => {
-      const input = document.getElementById(id);
-      const errorP = document.getElementById(id + 'Error');
-      const value = input.value.trim();
-
-      if (value === '') {
-        errorP.textContent = window.langData && window.langData[window.lang] && window.langData[window.lang]['error_empty'] ? window.langData[window.lang]['error_empty'] : 'This field cannot be empty';
-        errorP.classList.remove('hidden');
-        input.classList.add('border-red-500');
-        valid = false;
-      } else if (isNaN(value) || Number(value) < min || Number(value) > max) {
-        errorP.textContent = (window.langData && window.langData[window.lang] && window.langData[window.lang]['error_range']) ? window.langData[window.lang]['error_range'].replace('{min}', min).replace('{max}', max) : `Value must be between ${min} and ${max}`;
-        errorP.classList.remove('hidden');
-        input.classList.add('border-red-500');
-        valid = false;
-      } else {
-        errorP.textContent = '';
-        errorP.classList.add('hidden');
-        input.classList.remove('border-red-500');
-      }
-    });
-
-    
-    if (!valid) {
-      window.isCropFormValid = false;
-      return;
-    }
-    window.isCropFormValid = true;
-  });
-
-  // Hide error messages initially
-  fields.forEach(({id}) => {
-    const errorP = document.getElementById(id + 'Error');
-    errorP.classList.add('hidden');
-  });
-</script>
-<script src="{{ url_for('static', filename='js/crop.js') }}"></script>
-
-
-
+          <!-- Result -->
+          <div id="spinner" class="spinner hidden"></div>
+          <div id="crop-result" class="result"></div>
+        </form>
+      </div>
+    </main>
+  </div>
+  <script src="{{ url_for('static', filename='js/lang.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/crop.js') }}"></script>
 </body>
 </html>
-

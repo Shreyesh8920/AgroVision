@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriDash - Agri AI Assistant</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+</head>
+
+<body>
+  <div class="chat-root">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <div class="bot-avatar">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>
+          </svg>
+        </div>
+        <div class="header-text">
+          <h1>Agri AI Assistant</h1>
+          <p>Your smart farming companion</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <select class="language-selector">
+          <option>English</option>
+          <option>हिंदी</option>
+          <option>ਪੰਜਾਬੀ</option>
+        </select>
+        <button class="icon-btn" title="Clear chat">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14zM10 11v6M14 11v6"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Chat Container -->
+    <div class="chat-container" id="chatContainer">
+      <div class="chat-content">
+
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+          <div class="welcome-card">
+            <div class="welcome-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                <path d="M9 12l2 2 4-4"/>
+              </svg>
+            </div>
+            <h2>Hello Farmer!</h2>
+            <p>
+              I'm here to help you with crop advice, weather updates,
+              pest control, and more. How can I assist you today?
+            </p>
+          </div>
+
+          <!-- Feature Cards Grid -->
+          <div class="cards-grid">
+
+            <div class="feature-card">
+              <div class="feature-card-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                  <path d="M9 12l2 2 4-4"/>
+                </svg>
+              </div>
+              <h3>Crop Recommendation</h3>
+              <p>Get personalized crop suggestions based on your soil and climate</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+              </div>
+              <h3>Irrigation Planning</h3>
+              <p>Optimize water usage with smart irrigation schedules</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-icon">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+              </div>
+              <h3>Pest & Disease Support</h3>
+              <p>Identify and treat crop diseases with expert guidance</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                  <path d="M9 12l2 2 4-4"/>
+                </svg>
+              </div>
+              <h3>Market Insights</h3>
+              <p>Stay updated with real-time market prices and trends</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Chat Messages -->
+        <div class="chat-messages"></div>
+
+      </div>
+    </div>
+
+    <!-- Input Section -->
+    <footer class="input-section">
+      <div class="input-wrapper">
+        <textarea
+          class="chat-input"
+          rows="1"
+          placeholder="Ask me anything about farming..."
+        ></textarea>
+
+        <button class="voice-btn" title="Voice input">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/>
+          </svg>
+        </button>
+
+        <button class="send-btn" title="Send message">
+          <svg viewBox="0 0 24 24">
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+          </svg>
+        </button>
+      </div>
+    </footer>
+
+    <script>
+      document.querySelectorAll('.feature-card').forEach(card => {
+        card.addEventListener('click', function() {
+          const title = this.querySelector('h3').textContent;
+          const input = document.querySelector('.chat-input');
+          input.value = title;
+          input.focus();
+          input.dispatchEvent(new Event('input'));
+        });
+      });
+
+      document.querySelector('.send-btn').addEventListener('click', function() {
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          this.style.transform = '';
+        }, 100);
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+
+  </div>
+</body>
+</html>

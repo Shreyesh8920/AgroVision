@@ -12,3 +12,7 @@ env/
 
 # VS Code
 .vscode/
+
+# environment files
+.env
+.env.

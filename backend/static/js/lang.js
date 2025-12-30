@@ -1,7 +1,7 @@
 // lang.js
 const translations = {
   en: {
-    // --- crop.html ---
+    //crop.html
     crop_heading: "Crop Recommendation",
     crop_input_soil: "Soil Type",
     crop_input_nitrogen: "Nitrogen (N)",
@@ -12,7 +12,7 @@ const translations = {
     crop_submit_btn: "Get Recommendation",
     crop_result_label: "Recommended Crop:",
 
-    // --- fertiliser.html ---
+    //fertiliser.html
     fert_heading: "Fertilizer Recommendation",
     fert_input_crop: "Crop Name",
     fert_input_soil: "Soil Type",
@@ -23,7 +23,7 @@ const translations = {
     fert_submit_btn: "Get Fertilizer Recommendation",
     fert_result_label: "Recommended Fertilizer:",
 
-    // --- yield.html ---
+    //yield.html
     yield_heading: "Yield Prediction",
     yield_input_crop: "Crop Name",
     yield_input_area: "Area (hectares)",
@@ -38,7 +38,7 @@ const translations = {
   },
 
   hi: {
-    // --- crop.html ---
+    //crop.html
     crop_heading: "फसल सिफारिश",
     crop_input_soil: "मृदा प्रकार",
     crop_input_nitrogen: "नाइट्रोजन (N)",
@@ -49,7 +49,7 @@ const translations = {
     crop_submit_btn: "सिफारिश प्राप्त करें",
     crop_result_label: "सिफारिश की गई फसल:",
 
-    // --- fertiliser.html ---
+    //fertiliser.html
     fert_heading: "उर्वरक सिफारिश",
     fert_input_crop: "फसल का नाम",
     fert_input_soil: "मृदा प्रकार",
@@ -60,7 +60,7 @@ const translations = {
     fert_submit_btn: "उर्वरक सिफारिश प्राप्त करें",
     fert_result_label: "सिफारिश किया गया उर्वरक:",
 
-    // --- yield.html ---
+    //yield.html
     yield_heading: "उत्पादन पूर्वानुमान",
     yield_input_crop: "फसल का नाम",
     yield_input_area: "क्षेत्रफल (हेक्टेयर में)",
@@ -75,7 +75,7 @@ const translations = {
   }
 };
 
-// Translate all elements with data-i18n attribute
+
 function translatePage(lang) {
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const key = el.dataset.i18n;
@@ -85,13 +85,12 @@ function translatePage(lang) {
   });
 }
 
-// Set language and save preference in localStorage
+
 function setLanguage(lang) {
   translatePage(lang);
   localStorage.setItem("language", lang);
 }
 
-// Apply saved language on page load
 document.addEventListener("DOMContentLoaded", () => {
   const savedLang = localStorage.getItem("language") || "en";
   translatePage(savedLang);
