@@ -2,10 +2,8 @@ import os
 import time
 import requests
 from dotenv import load_dotenv
-
-load_dotenv()
-if not os.getenv("OPENROUTER_API_KEY"):
-    raise RuntimeError("OPENROUTER_API_KEY not found in .env")
+def api_available():
+    return bool(os.getenv("OPENROUTER_API_KEY"))
 
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 
@@ -147,6 +145,11 @@ def build_messages(context_messages, search_data=None):
     return messages
 #LLM logic
 def llm(context, search_data=None):
+    if not api_available():
+        return (
+            "⚠️ AI service temporarily unavailable. "
+            "API key not configured. System is running in offline mode."
+            )
     messages = build_messages(context, search_data)
 
     for model in [PRIMARY_MODEL, FALLBACK_MODEL]:
