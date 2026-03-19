@@ -203,7 +203,7 @@ http://127.0.0.1:5000
 ### Live Application URL
 
 ```
-https://agridash.onrender.com
+https://agridash-610p.onrender.com
 ```
 
 ---
